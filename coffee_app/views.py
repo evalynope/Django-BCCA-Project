@@ -1,0 +1,92 @@
+#COFFEE APP VIEWS
+#COFFEE APP
+#COFFEE APP
+#COFFEE APP
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Roast, BrewEntry
+from django.contrib.auth.decorators import login_required
+from .forms import BrewEntryForm
+
+#render list of roasts for user.
+
+def roast_list(request):
+    roasts = Roast.objects.select_related("coffee_shop").all()
+    return render(request, "roasts/roast_list.html", {"roasts": roasts})
+
+#should a user click on one roast, render its details 
+
+def roast_details(request, pk):
+    roast = get_object_or_404(Roast, pk=pk) #primary key. get_object handles the 'doesn't exist' error gracefully. 
+    return render(request, "roasts/roast_details.html", {"roast": roast})
+
+######## BREW ENTRY CRUD BELOW #######
+
+@login_required
+def brewentry_create(request):
+    if request.method == "POST":
+        form = BrewEntryForm(request.POST)
+        if form.is_valid():
+            brew_entry = form.save(commit=False) #do not save yet
+            brew_entry.user = request.user 
+            brew_entry.save() 
+            return redirect("brewentry_detail", pk=brew_entry.pk) #redirects to see the full details of the post #DOUBLECHECK brew_entry_detail
+    else:
+        form = BrewEntryForm()
+
+    return render(
+        request,
+        "coffee_app/brewentry_form.html",
+        {"form": form}
+    )
+
+@login_required 
+def brewentry_list(request): 
+    entries = BrewEntry.objects.filter(user=request.user)
+    return render(
+        request,
+        "coffee_app/brewentry_list.html",
+        {"entries": entries}
+    )
+
+@login_required
+def brewentry_detail(request, pk): 
+    entry = get_object_or_404(BrewEntry, user=request.user, pk=pk) 
+    return render(
+        request, 
+        "coffee_app/brewentry_detail.html",
+        {"entry": entry}
+    )
+
+@login_required
+def brewentry_update(request, pk): 
+    instance = get_object_or_404(BrewEntry, pk=pk, user=request.user)
+    if request.method == "POST":
+        form = BrewEntryForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+        return redirect("brewentry_list") #URL name not function
+    else:
+        form = BrewEntryForm(instance = instance) 
+
+    return render(
+        request,
+        "coffee_app/brewentry_update.html",
+        {"form": form}
+
+    )
+    
+@login_required 
+def brewentry_delete(request, pk): 
+    entry = get_object_or_404(BrewEntry, pk=pk, user=request.user)
+    if request.method == "POST":
+        entry.delete()
+        return redirect("brewentry_list")
+    return render(
+        request,
+        "coffee_app/brewentry_delete.html",
+        {"entry": entry}
+    )
+     
+
+######## BREW ENTRY CRUD ABOVE ######

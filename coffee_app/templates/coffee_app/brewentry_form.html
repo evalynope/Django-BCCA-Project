@@ -1,0 +1,15 @@
+{% extends "profiles_app/base.html" %}
+
+{% block content %}
+<h1>New Brew Entry</h1>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save Brew</button>
+</form>
+
+{% endblock %}
+
+
+{% comment %} this if for my view for creating an entry {% endcomment %}

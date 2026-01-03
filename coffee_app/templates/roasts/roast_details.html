@@ -1,0 +1,11 @@
+{% extends "profiles_app/base.html" %}
+
+{% block content%}
+<h1>{{ roast.name}}</h1>
+<p><strong>Origin:</strong> {{ roast.origin }}</p>
+<p><strong>Tasting Notes:</strong> {{ roast.tasting_notes }}</p>
+
+<a href="{% url 'roast_list' %}">← Back to roasts</a>
+
+
+{% endblock %}

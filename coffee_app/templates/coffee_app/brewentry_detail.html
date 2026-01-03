@@ -1,0 +1,37 @@
+{% extends "profiles_app/base.html" %}
+
+{% block content %}
+
+<h1>{{ entry.title }}</h1>
+
+<p><strong>Roast:</strong> {{ entry.roast }}</p>
+<p><strong>Brew Method:</strong> 
+    {% if entry.brew_method == "other" %}
+        {{ entry.other_brew_method }}
+    {% else %}
+        {{ entry.get_brew_method_display }} 
+    {% endif %}
+</p>
+
+<p><strong>Date Created:</strong> {{ entry.date_created }}</p>
+
+<hr>
+
+<h3>Notes</h3>
+<p>{{ entry.entry }}</p>
+
+{% if entry.rating %}
+    <p><strong>Rating:</strong> {{ entry.rating }} / 5</p>
+{% endif %}
+
+<hr>
+
+<a href="{% url 'brewentry_list' %}">← Back to My Entries</a>
+<a href="{% url 'brewentry_update' entry.pk %}">Edit Entry</a>
+<a href="{% url 'brewentry_delete' entry.pk %}">Delete Entry</a>
+
+{% endblock %}
+
+
+
+{% comment %}{{ entry.get_brew_method_display }} --> this accesses the Django choices list I created {% endcomment%}

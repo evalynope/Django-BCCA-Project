@@ -1,0 +1,17 @@
+{% extends "profiles_app/base.html" %}
+
+{% block content %}
+<h1>Roasts</h1>
+
+<ul>
+    {% for roast in roasts %}
+        <li>
+            <a href="{% url 'roast_details' roast.pk %}">
+                {{ roast.name }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No roasts yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

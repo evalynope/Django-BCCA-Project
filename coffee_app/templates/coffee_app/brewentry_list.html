@@ -1,0 +1,28 @@
+{% extends "profiles_app/base.html" %}
+
+{% block content %}
+
+<h1>My Journal Entries</h1>
+
+<hr>
+
+{% for entry in entries %}
+
+<h2>
+    <a href="{% url 'brewentry_detail' entry.pk %}">
+        <strong>{{entry.title}}</strong>
+    </a>
+</h2>
+<h3>Roast: {{entry.roast}}</h3>
+<h3>Date Created: {{entry.date_created}}</h3>
+
+<hr>
+
+<p>{{entry.entry}}</p> 
+
+<hr>
+
+
+{% endfor %}
+
+{% endblock %}

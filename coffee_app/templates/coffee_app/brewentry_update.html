@@ -1,0 +1,13 @@
+{% extends "profiles_app/base.html" %} 
+{% block content %}
+
+<h2>Edit Entry</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'brewentry_detail' form.instance.pk %}">Cancel</a>
+
+{% endblock %}
