@@ -9,7 +9,25 @@
   <button type="submit">Save Brew</button>
 </form>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const brew_method_select = document.getElementById("id_brew_method");
+    const otherField = document.getElementById("id_other_brew_method").closest("p");
+
+    function toggleOtherField() {
+        if (brew_method_select.value === "other") {
+            otherField.style.display = "block";
+        } else {
+            otherField.style.display = "none";
+            document.getElementById("id_other_brew_method").value = "";
+        }
+    }
+
+    toggleOtherField();
+    brew_method_select.addEventListener("change", toggleOtherField);
+});
+</script>
+
 {% endblock %}
 
 
-{% comment %} this if for my view for creating an entry {% endcomment %}

@@ -1,0 +1,8 @@
+<h1>Staff Dashboard</h1>
+
+<p>Welcome, {{ request.user.username }}.</p>
+
+<ul>
+  <li><a href="{% url 'brewentry_list' %}">View all brew entries</a></li>
+  <li><a href="/admin/">Go to Django Admin (optional)</a></li>
+</ul>

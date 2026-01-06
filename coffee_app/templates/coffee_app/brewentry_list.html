@@ -22,6 +22,16 @@
 
 <hr>
 
+<a href="{% url 'brewentry_create'%}">Create New Entry</a>
+
+{% empty %}
+
+<h2>No entries yet!</h2>
+<p>Your coffee journal is empty. Start by creating your first brew entry.</p>
+
+<a href="{% url 'brewentry_create'%}"> 
+    <button type="submit">Create entry</button>
+</a>
 
 {% endfor %}
 

@@ -15,6 +15,7 @@ urlpatterns = [
     path("brews/<int:pk>/", views.brewentry_detail, name="brewentry_detail"),
     path("brews/<int:pk>/edit/", views.brewentry_update, name="brewentry_update"),
     path("brews/<int:pk>/delete/", views.brewentry_delete, name="brewentry_delete"),
+    path("brews/community/", views.community, name ="community"),
 ]
 
 

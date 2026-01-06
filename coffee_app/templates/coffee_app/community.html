@@ -1,0 +1,71 @@
+{% extends "profiles_app/base.html" %} 
+{% block content %}
+
+<h2>Community Journal</h2>
+
+<hr>
+
+{% for entry in entries %}
+<h2>
+    {% if user.is_authenticated %}
+        <a href="{% url 'brewentry_detail' entry.pk %}">
+            <strong>{{entry.title}}</strong>
+        </a>
+    {% else %}
+    <a href="#" class="entry-link">
+            <strong>{{ entry.title }}</strong>
+        </a>
+    {%endif%}
+</h2>
+
+
+
+<h2>Roast: {{entry.roast}}</h2>
+<h3>Created By: {{entry.user}}</h3>
+<h3>Date Created: {{entry.date_created}}</h3>
+
+<hr>
+
+<p>{{entry.entry}}</p> 
+
+<hr>
+
+{% endfor %}
+
+<!-- modal style template -->
+<div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background-color: rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+    <div style="background:white; padding:1.5rem; border-radius:8px; max-width:300px; width:90%; position:relative;">
+        <button id="closeModal" style="position:absolute; top:0.5rem; right:0.5rem; background:none; border:none; font-size:1.2rem; cursor:pointer;">×</button>
+        <p style="margin-top:1.5rem;">You must be logged in to access this page.</p>
+    </div>
+</div>
+
+<!-- modal behavior, click x to close, click around modal to close, only for people not logged in -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("loginModal");
+    const closeBtn = document.getElementById("closeModal");
+
+    
+    document.querySelectorAll(".entry-link").forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();  
+            modal.style.display = "flex";  
+        });
+    });
+
+    
+    closeBtn.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+</script>
+
+{% endblock %}

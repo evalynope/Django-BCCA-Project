@@ -7,7 +7,7 @@ from .models import BrewEntry
 
 
 class BrewEntryForm(forms.ModelForm):
-    class Meta: #meta data controls the form withhout a field
+    class Meta: #meta data controls the form without a field
         model = BrewEntry
         fields = [
             "title",

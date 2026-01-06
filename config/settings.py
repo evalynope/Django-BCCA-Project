@@ -24,7 +24,8 @@ ALLOWED_HOSTS = []
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = 'profile_detail'
-
+SESSION_COOKIE_AGE = 60 * 30  # 30 minutes
+SESSION_SAVE_EVERY_REQUEST = True
 
 
 #above added

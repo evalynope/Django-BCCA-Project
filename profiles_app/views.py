@@ -7,10 +7,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 from .models import Profile
 from django.forms import ModelForm
 from .forms import ProfileForm
+from django.urls import reverse_lazy
 
 
 def home(request):
@@ -18,6 +20,21 @@ def home(request):
 
 class UserLoginView(LoginView):
     template_name = "profiles_app/login.html"
+
+    def get_success_url(self):
+        user = self.request.user
+
+        if user.is_staff:
+            return reverse_lazy("staff_dashboard")
+
+        return reverse_lazy("profile_detail")
+    
+def staff_check(user):
+    return user.is_staff
+
+@user_passes_test(staff_check)
+def staff_dashboard(request):
+    return render(request, "profiles_app/staff_dashboard.html")
 
 def signup(request):
     if request.method == "POST":

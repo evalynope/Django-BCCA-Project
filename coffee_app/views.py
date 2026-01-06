@@ -51,7 +51,8 @@ def brewentry_list(request):
 
 @login_required
 def brewentry_detail(request, pk): 
-    entry = get_object_or_404(BrewEntry, user=request.user, pk=pk) 
+    entry = get_object_or_404(BrewEntry,  pk=pk) 
+    # user=request.user was removed for community feed testing
     return render(
         request, 
         "coffee_app/brewentry_detail.html",
@@ -90,3 +91,8 @@ def brewentry_delete(request, pk):
      
 
 ######## BREW ENTRY CRUD ABOVE ######
+
+
+def community(request): # should return all community journal entries
+    entries = BrewEntry.objects.all().order_by("-date_created")
+    return render(request, "coffee_app/community.html", {"entries": entries, "show_empty_message": False, })
