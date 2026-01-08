@@ -3,6 +3,8 @@
 <p>Welcome, {{ request.user.username }}.</p>
 
 <ul>
-  <li><a href="{% url 'brewentry_list' %}">View all brew entries</a></li>
+  <h2>
+    <li><a href="{% url 'roast_list' %}">Continue to Roasts -></a></li>
+  </h2>
   <li><a href="/admin/">Go to Django Admin (optional)</a></li>
 </ul>

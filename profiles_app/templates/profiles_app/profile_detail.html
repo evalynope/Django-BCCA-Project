@@ -2,9 +2,14 @@
 {% block content %}
 
 
-<h2>{{ profile.user.username }}</h2>
-<p>{{ profile.bio }}</p>
-<p>{{ profile.city_state }}</p>
+<h2>User:{{ profile.user.username }}</h2>
+<p>First and Last name:{{ profile.first_last_name}}</p>
+<p>Bio: {{ profile.bio }}</p>
+<p> City and State: {{ profile.city_state }}</p>
+<p> Favorite Brew Method: {{ profile.fav_brew }}</p>
+<p> Roast Preference: {{ profile.roast_preference }}</p>
+
+
 
 {% comment %} button only works if user is is_authenticated {% endcomment %}
 

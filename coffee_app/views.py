@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Roast, BrewEntry
 from django.contrib.auth.decorators import login_required
 from .forms import BrewEntryForm
+from django.core.paginator import Paginator
 
 #render list of roasts for user.
 
@@ -18,7 +19,10 @@ def roast_list(request):
 
 def roast_details(request, pk):
     roast = get_object_or_404(Roast, pk=pk) #primary key. get_object handles the 'doesn't exist' error gracefully. 
-    return render(request, "roasts/roast_details.html", {"roast": roast})
+    return render(
+        request, 
+        "roasts/roast_details.html", 
+        {"roast": roast, "most_common_brew_method": roast.most_common_brew_method(),})
 
 ######## BREW ENTRY CRUD BELOW #######
 
@@ -95,4 +99,10 @@ def brewentry_delete(request, pk):
 
 def community(request): # should return all community journal entries
     entries = BrewEntry.objects.all().order_by("-date_created")
-    return render(request, "coffee_app/community.html", {"entries": entries, "show_empty_message": False, })
+
+    paginator = Paginator(entries, 10) 
+    page_number = request.GET.get("page")
+    page_object = paginator.get_page(page_number)
+
+
+    return render(request, "coffee_app/community.html", {"page_object": page_object, "show_empty_message": False, })

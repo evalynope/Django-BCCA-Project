@@ -8,7 +8,6 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
-
 from .models import Profile
 from django.forms import ModelForm
 from .forms import ProfileForm
@@ -38,12 +37,19 @@ def staff_dashboard(request):
 
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST) #built in to create Django User accounts
-        if form.is_valid:
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
             user = form.save()
-            Profile.objects.create(user=user)
-            login(request, user) #imported for redirects
-        return redirect("profile_detail")
+            Profile.objects.create(
+                user=user,
+                first_last_name='',
+                city_state='',
+                bio='',
+                fav_brew='',
+                roast_preference='',
+            )
+            login(request, user) 
+            return redirect("profile_detail") #double-check
     else:
         form = UserCreationForm()
 

@@ -6,6 +6,10 @@
 
 <hr>
 
+<a href="{% url 'brewentry_create'%}">Create New Entry</a>
+
+<hr>
+
 {% for entry in entries %}
 
 <h2>
@@ -22,7 +26,6 @@
 
 <hr>
 
-<a href="{% url 'brewentry_create'%}">Create New Entry</a>
 
 {% empty %}
 

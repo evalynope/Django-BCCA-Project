@@ -1,13 +1,12 @@
 from django import forms
 from .models import BrewEntry
 from .models import Roast
-
 from django import forms
 from .models import BrewEntry
 
 
 class BrewEntryForm(forms.ModelForm):
-    class Meta: #meta data controls the form without a field
+    class Meta: 
         model = BrewEntry
         fields = [
             "title",
@@ -18,7 +17,7 @@ class BrewEntryForm(forms.ModelForm):
             "rating",
         ]
         widgets = {
-            "entry": forms.Textarea(attrs={"rows": 4}), #UI
+            "entry": forms.Textarea(attrs={"rows": 4}), 
         }
 
     def clean(self):

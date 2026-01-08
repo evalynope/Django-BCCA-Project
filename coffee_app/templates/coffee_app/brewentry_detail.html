@@ -4,6 +4,7 @@
 
 <h1>{{ entry.title }}</h1>
 
+<p><strong>Created By:</strong> {{ entry.user }}</p>
 <p><strong>Roast:</strong> {{ entry.roast }}</p>
 <p><strong>Brew Method:</strong> 
     {% if entry.brew_method == "other" %}
@@ -25,10 +26,16 @@
 {% endif %}
 
 <hr>
-
+ {% if user == entry.user %}
 <a href="{% url 'brewentry_list' %}">← Back to My Entries</a>
+{% else %}
+<a href="{% url 'community' %}">← Back to All Entries</a>
+{% endif%}
+
+{% if user == entry.user or user.is_staff or user.is_superuser %}
 <a href="{% url 'brewentry_update' entry.pk %}">Edit Entry</a>
 <a href="{% url 'brewentry_delete' entry.pk %}">Delete Entry</a>
+{% endif%}
 
 {% endblock %}
 

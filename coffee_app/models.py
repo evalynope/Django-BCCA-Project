@@ -1,7 +1,9 @@
 from django.db import models
-from django.contrib.auth import get_user_model #used to call all built in User fields
-from django.core.validators import MinValueValidator, MaxValueValidator #used in BrewEntry/ - rating 
+from django.contrib.auth import get_user_model 
+from django.core.validators import MinValueValidator, MaxValueValidator 
 from django.conf import settings
+from django.db.models import Count, F, Case, When
+
 
 User = get_user_model()
 
@@ -14,6 +16,14 @@ class CoffeeShop(models.Model):
     
 
 class Roast(models.Model):
+    ROASTS = [
+        ("light","Light"),
+        ("medium","Medium"),
+        ("dark","Dark")]
+    
+    CROWD = [("crowd-pleaser","Crowd-pleaser"),
+             ("coffee enthusiast","Coffee Enthusiast")
+    ]
     coffee_shop = models.ForeignKey(
         CoffeeShop,
         on_delete=models.CASCADE,
@@ -22,17 +32,36 @@ class Roast(models.Model):
     name = models.CharField(max_length=100)
     origin = models.CharField(max_length=100)
     tasting_notes = models.TextField()
+    profile = models.CharField(
+        max_length=10,
+        choices=ROASTS,
+        default="medium")
+    crowd = models.CharField(
+        max_length=20,
+        choices=CROWD,
+        default="Coffee Enthusiast")
     is_seasonal = models.BooleanField(default=False)
     is_available = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
-
-
+    
+    def most_common_brew_method(self, min_count=5):
+        most_common = (
+            self.brew_entries 
+            .values("brew_method")
+            .annotate(count=Count("id"))
+            .filter(count__gte=min_count)
+            .order_by("-count")
+            .first()
+        )
+        if most_common:
+            return dict(BrewEntry.BREW_METHODS).get(most_common["brew_method"])
+        return None
 
 class BrewEntry(models.Model):
 
-    BREW_METHODS = [("espresso", "Espresso"),  #added to avoid ambiguity. leaves 'other' option open.
+    BREW_METHODS = [("espresso", "Espresso"),  
                     ("pour_over", "Pour Over"),
                     ("french_press", "French Press"), 
                     ("drip", "Drip"), 
@@ -42,7 +71,7 @@ class BrewEntry(models.Model):
     
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, #will work with any relationship now
+        settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE,
         related_name="brew_entries"
     )
@@ -75,7 +104,7 @@ class BrewEntry(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-date_created"] #orders from newest rather than oldest
+        ordering = ["-date_created"]
  
 
     def __str__(self):

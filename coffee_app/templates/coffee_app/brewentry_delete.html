@@ -1,14 +1,14 @@
 {% extends "profiles_app/base.html" %} 
 {% block content %}
 
-<h2>Delele Entry</h2>
+<h2>Delete Entry</h2>
 
 <p>Are you sure you want to delete <strong>{{ entry.title }}</strong>? This action cannot be undone.</p>
 
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">Yes, delete this entry</button>
+  <button type="submit">Yes, delete this entry.</button>
 </form>
 
 <br>

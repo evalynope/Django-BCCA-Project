@@ -4,6 +4,13 @@
 <h1>{{ roast.name}}</h1>
 <p><strong>Origin:</strong> {{ roast.origin }}</p>
 <p><strong>Tasting Notes:</strong> {{ roast.tasting_notes }}</p>
+<p><strong>Profile:</strong> {{ roast.profile }}</p>
+
+{% if most_common_brew_method %}
+  <p>Most commonly brewed as: {{ most_common_brew_method|title }}</p>
+{% else %}
+  <p>Not enough brews logged to calculate most common brewing method for this roast.</p>
+{% endif %}
 
 <a href="{% url 'roast_list' %}">← Back to roasts</a>
 

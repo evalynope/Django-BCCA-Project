@@ -1,19 +1,31 @@
 {% extends "profiles_app/base.html" %}
 
 {% block content %}
-<h1>Roasts</h1>
+<div style="text-align: center;">
+    <h1>Brew it your way. Share the experience.</h1>
 
-<ul>
-    {% for roast in roasts %}
-        <li>
-            <h3>
-                <a href="{% url 'roast_details' roast.pk %}">
-                    {{ roast.name }}
-                </a>
-            </h3>
-        </li>
-    {% empty %}
-        <li>No roasts yet.</li>
-    {% endfor %}
-</ul>
+    <h3>Browse Heartbreak Coffee roasts, discover how others brew them, 
+    and log your own brew notes and ratings. This is our community journal—made 
+    by coffee drinkers, for coffee drinkers.</h4>
+
+    <hr>
+
+    <h3>Our Roasts:</h3>
+
+    <hr>
+
+    <ul>
+        {% for roast in roasts %}
+            <li>
+                <h4>
+                    <a href="{% url 'roast_details' roast.pk %}">
+                        {{ roast.name }}
+                    </a>
+                </h4>
+            </li>
+        {% empty %}
+            <li>No roasts yet.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
