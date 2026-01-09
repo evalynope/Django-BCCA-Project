@@ -39,9 +39,10 @@ class Roast(models.Model):
     crowd = models.CharField(
         max_length=20,
         choices=CROWD,
-        default="Coffee Enthusiast")
+        default="coffee enthusiast")
     is_seasonal = models.BooleanField(default=False)
     is_available = models.BooleanField(default=True)
+    is_good_to_gift = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

@@ -1,18 +1,45 @@
 {% extends "profiles_app/base.html" %}
 
 {% block content%}
+
+
 <h1>{{ roast.name}}</h1>
 <p><strong>Origin:</strong> {{ roast.origin }}</p>
 <p><strong>Tasting Notes:</strong> {{ roast.tasting_notes }}</p>
-<p><strong>Profile:</strong> {{ roast.profile }}</p>
+<p><strong>Profile:</strong> {{ roast.profile }} roast</p>
+<p><strong>Typical brew crowd:</strong> {{ roast.crowd }}</p>
+
+{% if roast.is_a_good_gift and roast.is_available %}
+  <p>🎁 Available now and perfect for gifting!</p>
+{% endif %}
+
 
 {% if most_common_brew_method %}
-  <p>Most commonly brewed as: {{ most_common_brew_method|title }}</p>
+  <p>Community brew preference: {{ most_common_brew_method|title }}</p>
 {% else %}
   <p>Not enough brews logged to calculate most common brewing method for this roast.</p>
 {% endif %}
 
-<a href="{% url 'roast_list' %}">← Back to roasts</a>
+<hr>
 
+<h3>Entries on this Roast:</h3>
+{% if entries %}
+  <ul>
+      {% for entry in entries %}
+        <li>
+        <p>{{entry.user.username}} brewed this roast on {{ entry.date_created|date:"M d, Y" }}</p>
+        {% if entry.rating %}
+          <p>Rating: {{ entry.rating }} / 5</p>
+        {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+
+{% else %}
+  <p>No journal entries for this roast yet.</p>
+{% endif %}
+
+<a href="{% url 'community' %}">See all community brews -> </a>
 
 {% endblock %}

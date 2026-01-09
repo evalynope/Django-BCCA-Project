@@ -8,21 +8,51 @@ from .models import Roast, BrewEntry
 from django.contrib.auth.decorators import login_required
 from .forms import BrewEntryForm
 from django.core.paginator import Paginator
+from django.db.models import Count
 
-#render list of roasts for user.
+#render list of roasts for user, including filter options 
 
 def roast_list(request):
     roasts = Roast.objects.select_related("coffee_shop").all()
-    return render(request, "roasts/roast_list.html", {"roasts": roasts})
+
+    profile = request.GET.get("profile",'')
+    crowd = request.GET.get("crowd", '')
+    sort = request.GET.get("sort", '')
+
+    if profile:
+        roasts = roasts.filter(profile=profile)
+
+    if crowd:
+        roasts = roasts.filter(crowd=crowd)
+
+    if sort == "popular":
+        roasts = roasts.annotate(
+            brew_count=Count("brew_entries")
+        ).order_by("-brew_count")
+
+    return render(
+        request, 
+        "roasts/roast_list.html", 
+        {"roasts": roasts,
+          "profile": profile,
+          "crowd": crowd,
+          "sort": sort,})
+
+
+
+
+
+
 
 #should a user click on one roast, render its details 
 
 def roast_details(request, pk):
     roast = get_object_or_404(Roast, pk=pk) #primary key. get_object handles the 'doesn't exist' error gracefully. 
+    entries = roast.brew_entries.all().order_by("-date_created") 
     return render(
         request, 
         "roasts/roast_details.html", 
-        {"roast": roast, "most_common_brew_method": roast.most_common_brew_method(),})
+        {"roast": roast, "most_common_brew_method": roast.most_common_brew_method(), "entries": entries})
 
 ######## BREW ENTRY CRUD BELOW #######
 
@@ -94,7 +124,7 @@ def brewentry_delete(request, pk):
     )
      
 
-######## BREW ENTRY CRUD ABOVE ######
+######## BREW ENTRY CRUD ABOVE ###### COMMUNITY FEED BELOW 
 
 
 def community(request): # should return all community journal entries
@@ -105,4 +135,10 @@ def community(request): # should return all community journal entries
     page_object = paginator.get_page(page_number)
 
 
-    return render(request, "coffee_app/community.html", {"page_object": page_object, "show_empty_message": False, })
+    return render(
+        request, 
+        "coffee_app/community.html", 
+        {"page_object": page_object, 
+         "show_empty_message": False, })
+
+

@@ -4,15 +4,46 @@
 <div style="text-align: center;">
     <h1>Brew it your way. Share the experience.</h1>
 
-    <h3>Browse Heartbreak Coffee roasts, discover how others brew them, 
-    and log your own brew notes and ratings. This is our community journal—made 
-    by coffee drinkers, for coffee drinkers.</h4>
+    <h3>
+        Browse Heartbreak Coffee roasts, discover how others brew them, 
+        and log your own brew notes and ratings. This is our community journal made 
+        by coffee drinkers, for coffee drinkers.
+    </h3>
 
     <hr>
 
     <h3>Our Roasts:</h3>
 
     <hr>
+
+    <form method="get">
+        <label for="profile">Roast Profile:</label>
+        <select id="profile" name="profile">
+            <option value="">All profiles</option>
+            <option value="light" {% if profile == "light" %}selected{% endif %}>Light</option>
+            <option value="medium" {% if profile == "medium" %}selected{% endif %}>Medium</option>
+            <option value="dark" {% if profile == "dark" %}selected{% endif %}>Dark</option>
+        </select>
+
+        </label>
+    
+        <label for="crowd">Crowd:</label>
+            <select id="crowd" name="crowd">
+                <option value="">All audiences</option>
+                <option value="crowd-pleaser" {% if crowd == "crowd-pleaser" %}selected{% endif %}>Crowd-pleaser</option>
+                <option value="coffee enthusiast" {% if crowd == "coffee enthusiast" %}selected{% endif %}>Coffee Enthusiast</option>
+            </select>
+        </label>
+
+        <label for="sort">Sort by:</label>
+            <select id="sort" name="sort">
+                <option value="">Default</option>
+                <option value="popular">Popularity</option>
+            </select>
+        </label>
+
+        <button type="submit">Apply</button>
+    </form>
 
     <ul>
         {% for roast in roasts %}
@@ -28,4 +59,9 @@
         {% endfor %}
     </ul>
 </div>
+
+
+{% comment %} <p>Debug: profile={{ profile }}, crowd={{ crowd }}, sort={{ sort }}</p> {% endcomment %}
+
+
 {% endblock %}
