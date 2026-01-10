@@ -1,67 +1,104 @@
 {% extends "profiles_app/base.html" %}
+{% load static %}
+
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/roast_list.css' %}"> {% endblock %}
 
 {% block content %}
-<div style="text-align: center;">
-    <h1>Brew it your way. Share the experience.</h1>
 
+
+<!-- Hero section (full width, top) -->
+<div class="hero-section">
+    <h1>
+        Browse our roasts. 
+        Brew it your way. 
+        Share the experience.
+    </h1>
     <h3>
-        Browse Heartbreak Coffee roasts, discover how others brew them, 
-        and log your own brew notes and ratings. This is our community journal made 
-        by coffee drinkers, for coffee drinkers.
+        Whether you're passing through Oxford or you're a Heartbreak 'regular', we believe the best way to select 
+        the right roast is by hearing from the people who brew it their way. Use this journal to find 
+        users with similar preferences to guide your own brew or to pick out something special for gifting!
     </h3>
-
-    <hr>
-
-    <h3>Our Roasts:</h3>
-
-    <hr>
-
-    <form method="get">
-        <label for="profile">Roast Profile:</label>
-        <select id="profile" name="profile">
-            <option value="">All profiles</option>
-            <option value="light" {% if profile == "light" %}selected{% endif %}>Light</option>
-            <option value="medium" {% if profile == "medium" %}selected{% endif %}>Medium</option>
-            <option value="dark" {% if profile == "dark" %}selected{% endif %}>Dark</option>
-        </select>
-
-        </label>
     
-        <label for="crowd">Crowd:</label>
+</div>
+
+<hr>
+
+<!-- Roast list -->
+<h3>All Roasts:</h3>
+<form method="get" class="roast-filters">
+          <!-- Filters -->
+
+            <label for="profile">Roast Profile:</label>
+            <select id="profile" name="profile">
+                <option value="">All profiles</option>
+                <option value="light" {% if profile == "light" %}selected{% endif %}>Light</option>
+                <option value="medium" {% if profile == "medium" %}selected{% endif %}>Medium</option>
+                <option value="dark" {% if profile == "dark" %}selected{% endif %}>Dark</option>
+            </select>
+
+            <label for="crowd">Crowd:</label>
             <select id="crowd" name="crowd">
                 <option value="">All audiences</option>
                 <option value="crowd-pleaser" {% if crowd == "crowd-pleaser" %}selected{% endif %}>Crowd-pleaser</option>
                 <option value="coffee enthusiast" {% if crowd == "coffee enthusiast" %}selected{% endif %}>Coffee Enthusiast</option>
             </select>
-        </label>
 
-        <label for="sort">Sort by:</label>
+            <label for="sort">Sort by:</label>
             <select id="sort" name="sort">
                 <option value="">Default</option>
                 <option value="popular">Popularity</option>
             </select>
-        </label>
 
-        <button type="submit">Apply</button>
-    </form>
+            <button type="submit" class="button-primary">Apply</button>
+        </form>
 
-    <ul>
-        {% for roast in roasts %}
-            <li>
-                <h4>
-                    <a href="{% url 'roast_details' roast.pk %}">
-                        {{ roast.name }}
-                    </a>
-                </h4>
-            </li>
-        {% empty %}
-            <li>No roasts yet.</li>
-        {% endfor %}
-    </ul>
+<hr>
+
+<div class="roast-grid">
+    {% for roast in roasts %}
+        <div class="roast-card">
+            <h1>
+                <a href="{% url 'roast_details' roast.pk %}">{{ roast.name }}</a>
+            </h1>
+        </div>
+    {% empty %}
+        <p>No roasts yet.</p>
+    {% endfor %}
+</div>
+
+<hr>
+
+<!-- Featured roasts -->
+<h3>Featured Roasts</h3>
+<div class="roast-grid featured-roasts">
+    {% for roast in featured_roasts %}
+        <div class="roast-card">
+            <h2>
+                <a href="{% url 'roast_details' roast.pk %}" class="featured-roast-link">
+                    {{ roast.name }} </a>
+            </h2>
+        </div>
+    {% endfor %}
 </div>
 
 
-{% comment %} <p>Debug: profile={{ profile }}, crowd={{ crowd }}, sort={{ sort }}</p> {% endcomment %}
+
+<hr>
+
+{% comment %} <!-- Bottom section -->
+<div class="end-section">
+    <h3>Whether you're passing through Oxford or you're a Heartbreak 'regular', we believe the best way to select 
+    the right roast is by hearing from the people who brew it their way. Use this journal to find 
+    users with similar preferences to guide your own brew or to pick out something special for gifting!</h3>
+</div> {% endcomment %}
+
+
+
+
+
 
 
 {% endblock %}

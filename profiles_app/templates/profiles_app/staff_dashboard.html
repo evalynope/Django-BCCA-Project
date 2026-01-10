@@ -1,10 +1,17 @@
+{% extends "profiles_app/base.html" %} 
+{% block content %}
+
 <h1>Staff Dashboard</h1>
 
-<p>Welcome, {{ request.user.username }}.</p>
+<h4>Welcome, {{ request.user.username }}.</h4>
 
-<ul>
+
   <h2>
-    <li><a href="{% url 'roast_list' %}">Continue to Roasts -></a></li>
+    <li><a href="{% url 'roast_list' %}">Continue to Roasts</a>
   </h2>
-  <li><a href="/admin/">Go to Django Admin (optional)</a></li>
-</ul>
+
+  <p><a href="/admin/">Go to Django Admin (optional)</a></p>
+
+
+
+{% endblock %}

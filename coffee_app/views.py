@@ -14,6 +14,8 @@ from django.db.models import Count
 
 def roast_list(request):
     roasts = Roast.objects.select_related("coffee_shop").all()
+    featured_roasts = Roast.objects.order_by('-id')[:5] #last five added
+    latest_entries = BrewEntry.objects.select_related('user','roast').order_by("-date_created")[:5]
 
     profile = request.GET.get("profile",'')
     crowd = request.GET.get("crowd", '')
@@ -34,14 +36,11 @@ def roast_list(request):
         request, 
         "roasts/roast_list.html", 
         {"roasts": roasts,
+         "featured_roasts": featured_roasts,
           "profile": profile,
           "crowd": crowd,
-          "sort": sort,})
-
-
-
-
-
+          "sort": sort,
+          "latest_entries": latest_entries})
 
 
 #should a user click on one roast, render its details 

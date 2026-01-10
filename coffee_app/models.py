@@ -43,6 +43,7 @@ class Roast(models.Model):
     is_seasonal = models.BooleanField(default=False)
     is_available = models.BooleanField(default=True)
     is_good_to_gift = models.BooleanField(default=False)
+    
 
     def __str__(self):
         return self.name
