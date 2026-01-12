@@ -11,23 +11,26 @@
 
 <!-- Hero section (full width, top) -->
 <div class="hero-section">
-    <h1>
+    <h1 style="font-size: 3rem">
         Browse our roasts. 
         Brew it your way. 
         Share the experience.
+</div>
+<div class ="opener">
     </h1>
     <h3>
         Whether you're passing through Oxford or you're a Heartbreak 'regular', we believe the best way to select 
         the right roast is by hearing from the people who brew it their way. Use this journal to find 
         users with similar preferences to guide your own brew or to pick out something special for gifting!
     </h3>
-    
 </div>
+    
+
 
 <hr>
 
 <!-- Roast list -->
-<h3>All Roasts:</h3>
+<h3>Filter By:</h3>
 <form method="get" class="roast-filters">
           <!-- Filters -->
 
@@ -74,6 +77,43 @@
 </div>
 
 <hr>
+
+<!-- Gifting roasts -->
+<h3>Our Gift Picks:</h3>
+<p>There's something for everyone. Grab one of these to get the best of the best!</p>
+<div class="roast-grid gifting-roasts">
+    {% for roast in gifting_roasts %}
+        <div class="roast-card">
+            <h2>
+                <a href="{% url 'roast_details' roast.pk %}" class="featured-roast-link">
+                    {{ roast.name }}
+                </a>
+            </h2>
+        </div>
+    {% endfor %}
+</div>
+
+
+  {% comment %} <!-- Right column (sidebar) -->
+    <aside class="sidebar">
+        <div class="card">
+            <h3>Latest Brews</h3>
+            <ul>
+                {% for entry in latest_entries %}
+                    <li>
+                        <strong>{{ entry.title }}</strong> by {{ entry.user.username }}<br>
+                        <em>{{ entry.roast.name }}</em><br>
+                        {{ entry.entry|truncatechars:50 }}
+                    </li>
+                {% empty %}
+                    <li>No entries yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>  {% endcomment %}
+
+
+
 
 
 

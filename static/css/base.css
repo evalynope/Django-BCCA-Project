@@ -20,7 +20,8 @@
 
 .hero-section {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-right: 5.5rem;
+    margin-left: 5.5rem;
     padding: 2rem;
 }
 
@@ -124,52 +125,6 @@ hr {
   margin: 2rem 0;
 }
 
-/* =====================================================
-   Cards (Community Feed, Sidebars, etc.)
-   ===================================================== */
-
-.card {
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
-  background-color: var(--color-primary);
-}
-
-.card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  color: #f6efcc;
-}
-
-.card li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.card li:last-child {
-  border-bottom: none;
-}
-
-.card strong {
-  display: block;
-  font-weight: 600;
-}
-
-.card em {
-  font-style: normal;
-  font-size: 0.9rem;
-  color: #f6efcc;
-}
-
-.sidebar h3{
-    color:#f6efcc;
-}
-
-.sidebar{
-    padding-left: 2rem;
-}
 
 /* =====================================================
    Buttons
@@ -233,24 +188,6 @@ a:focus-visible {
 }
 
 
-
-
-/* Logout Form inline and similar buttons */
-
-/* form[style*="display:inline;"] button {
-    background-color: #f6efcc;
-    color: #6b3e26;
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-}
-
-form[style*="display:inline;"] button:hover {
-    background-color: #563218;
-} */
-
-
 button[type="submit"] {
      padding: 0.5rem 1.2rem;
     border-radius: 8px;
@@ -261,9 +198,7 @@ button[type="submit"] {
     transition: transform 0.2s, background 0.2s;
 }
 
-/* button[type="submit"]:hover {
-    background-color: #563218;
-} */
+
 
 button[type="submit"]:active {
     transform: translateY(1px);
