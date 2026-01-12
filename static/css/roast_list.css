@@ -123,6 +123,7 @@
     justify-items: center; /* centers items when fewer columns */
     margin-bottom: 2rem;
     color: #f6efcc;
+    max-width: 1200px;
 }
 
 

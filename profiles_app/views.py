@@ -3,6 +3,7 @@
 #PROFILE APP
 #PROFILE APP
 
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
@@ -19,14 +20,13 @@ def home(request):
 
 class UserLoginView(LoginView):
     template_name = "profiles_app/login.html"
+    redirect_authenticated_user = True
 
     def get_success_url(self):
         user = self.request.user
-
         if user.is_staff:
             return reverse_lazy("staff_dashboard")
-
-        return reverse_lazy("profile_detail")
+        return "/"
     
 def staff_check(user):
     return user.is_staff
@@ -79,3 +79,8 @@ def profile_edit(request):
         form = ProfileForm(instance=profile)
 
     return render(request, 'profiles_app/profile_edit.html', {'form': form})
+
+
+
+
+

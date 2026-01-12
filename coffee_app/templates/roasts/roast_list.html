@@ -48,8 +48,8 @@
 
             <label for="sort">Sort by:</label>
             <select id="sort" name="sort">
-                <option value="">Default</option>
-                <option value="popular">Popularity</option>
+                <option value=""{% if sort == "default" %}selected{% endif %}>Default</option>
+                <option value="popular"{% if sort == "popular" %}selected{% endif %}>Popularity</option>
             </select>
 
             <button type="submit" class="button-primary">Apply</button>
@@ -63,41 +63,17 @@
             <h1>
                 <a href="{% url 'roast_details' roast.pk %}">{{ roast.name }}</a>
             </h1>
+            <p style="font-size:1rem; margin-top:0.25rem;">
+                {{ roast.tasting_notes }}
+            </p>
         </div>
+
     {% empty %}
         <p>No roasts yet.</p>
     {% endfor %}
 </div>
 
 <hr>
-
-<!-- Featured roasts -->
-<h3>Featured Roasts</h3>
-<div class="roast-grid featured-roasts">
-    {% for roast in featured_roasts %}
-        <div class="roast-card">
-            <h2>
-                <a href="{% url 'roast_details' roast.pk %}" class="featured-roast-link">
-                    {{ roast.name }} </a>
-            </h2>
-        </div>
-    {% endfor %}
-</div>
-
-
-
-<hr>
-
-{% comment %} <!-- Bottom section -->
-<div class="end-section">
-    <h3>Whether you're passing through Oxford or you're a Heartbreak 'regular', we believe the best way to select 
-    the right roast is by hearing from the people who brew it their way. Use this journal to find 
-    users with similar preferences to guide your own brew or to pick out something special for gifting!</h3>
-</div> {% endcomment %}
-
-
-
-
 
 
 

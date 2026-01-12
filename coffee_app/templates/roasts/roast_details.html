@@ -9,7 +9,7 @@
 <p><strong>Profile:</strong> {{ roast.profile }} roast</p>
 <p><strong>Typical brew crowd:</strong> {{ roast.crowd }}</p>
 
-{% if roast.is_a_good_gift and roast.is_available %}
+{% if roast.is_good_to_gift and roast.is_available %}
   <p>🎁 Available now and perfect for gifting!</p>
 {% endif %}
 
@@ -17,7 +17,8 @@
 {% if most_common_brew_method %}
   <p>Community brew preference: {{ most_common_brew_method|title }}</p>
 {% else %}
-  <p>Not enough brews logged to calculate most common brewing method for this roast.</p>
+  
+  {% comment %} <p>Not enough brews logged to calculate most common brewing method for this roast.</p> {% endcomment %}
 {% endif %}
 
 <hr>
