@@ -29,6 +29,23 @@
 
 <hr>
 
+<h3 class="section-title">Latest Brews</h3>
+
+
+<div class="brew-grid">
+    {% for entry in latest_entries %}
+        <div class="brew-card">
+            <strong>{{ entry.title }}</strong> by {{ entry.user.username }}<br>
+            <em>{{ entry.roast.name }}</em><br>
+            {{ entry.entry|truncatechars:50 }}
+        </div>
+    {% empty %}
+        <p>No entries yet.</p>
+    {% endfor %}
+</div>  
+
+<hr>
+
 <!-- Roast list -->
 <h3>Filter By:</h3>
 <form method="get" class="roast-filters">
@@ -94,23 +111,9 @@
 </div>
 
 
-  {% comment %} <!-- Right column (sidebar) -->
-    <aside class="sidebar">
-        <div class="card">
-            <h3>Latest Brews</h3>
-            <ul>
-                {% for entry in latest_entries %}
-                    <li>
-                        <strong>{{ entry.title }}</strong> by {{ entry.user.username }}<br>
-                        <em>{{ entry.roast.name }}</em><br>
-                        {{ entry.entry|truncatechars:50 }}
-                    </li>
-                {% empty %}
-                    <li>No entries yet.</li>
-                {% endfor %}
-            </ul>
-        </div>
-    </aside>  {% endcomment %}
+
+
+
 
 
 

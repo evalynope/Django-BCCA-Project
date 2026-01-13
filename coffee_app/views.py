@@ -15,7 +15,7 @@ from django.db.models import Count
 def roast_list(request):
     roasts = Roast.objects.select_related("coffee_shop").all()
     # featured_roasts = Roast.objects.order_by('-id')[:5] #last five added- maybe use later
-    latest_entries = BrewEntry.objects.select_related('user','roast').order_by("-date_created")[:5]
+    latest_entries = BrewEntry.objects.select_related('user','roast').order_by("-date_created")[:12]
     gifting_roasts = Roast.objects.filter(is_good_to_gift=True)
     profile = request.GET.get("profile",'')
     crowd = request.GET.get("crowd", '')
