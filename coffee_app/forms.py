@@ -35,3 +35,27 @@ class BrewEntryForm(forms.ModelForm):
 
 
 
+from django import forms
+from .models import Roast
+
+class RoastForm(forms.ModelForm): #staff can create a Roast not in admin
+    class Meta:
+        model = Roast
+        fields = [
+            "coffee_shop",
+            "name",
+            "origin",
+            "tasting_notes",
+            "profile",
+            "crowd",
+            "is_seasonal",
+            "is_available",
+            "is_good_to_gift",
+        ]
+
+        widgets = {
+            "tasting_notes": forms.Textarea(attrs={
+                "rows": 4,
+                "placeholder": "Flavor notes, aroma..."
+            }),
+        }

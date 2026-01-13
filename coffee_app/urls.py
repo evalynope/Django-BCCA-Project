@@ -16,7 +16,9 @@ urlpatterns = [
     path("brews/<int:pk>/edit/", views.brewentry_update, name="brewentry_update"),
     path("brews/<int:pk>/delete/", views.brewentry_delete, name="brewentry_delete"),
     path("brews/community/", views.community, name ="community"),
-
+    path("roasts/new/", views.roast_create, name="roast_create"),
+    path("roasts/<int:pk>/edit/", views.roast_update, name="roast_update"),
+    path("roasts/<int:pk>/delete/", views.roast_delete, name="roast_delete")
 ]
 
 

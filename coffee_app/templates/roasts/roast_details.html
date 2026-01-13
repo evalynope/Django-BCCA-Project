@@ -41,6 +41,10 @@
   <p>No journal entries for this roast yet.</p>
 {% endif %}
 
-<a href="{% url 'community' %}">See all community brews -> </a>
+<a href="{% url 'community' %}">See all community brews</a> 
+{% if user.is_staff %}
+    <a href="{% url 'roast_update' roast.pk %}"> | Edit Roast</a> |
+    <a href="{% url 'roast_delete' roast.pk %}">Delete Roast</a>
+{% endif %}
 
 {% endblock %}

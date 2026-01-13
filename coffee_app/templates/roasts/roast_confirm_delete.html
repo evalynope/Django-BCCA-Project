@@ -1,0 +1,14 @@
+{% extends "profiles_app/base.html" %}
+
+
+{% block content %}
+<h2>Delete Roast</h2>
+
+<p>Are you sure you want to delete "{{ roast.name }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'roast_list' %}">Cancel</a>
+</form>
+{% endblock %}

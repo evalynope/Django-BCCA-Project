@@ -9,6 +9,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import BrewEntryForm
 from django.core.paginator import Paginator
 from django.db.models import Count
+from .forms import RoastForm
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
+
 
 #render list of roasts for user, including filter options 
 
@@ -144,3 +148,56 @@ def community(request): # should return all community journal entries
          "show_empty_message": False, })
 
 
+def is_staff_user(user):
+    return user.is_staff
+
+
+#staff create, update, delete roast:
+
+@login_required
+def roast_create(request):
+    if not request.user.is_staff:
+        raise PermissionDenied
+    if request.method == "POST":
+        form = RoastForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("roast_list")
+    else:
+        form = RoastForm()
+
+    return render(request, "roasts/roast_create.html", {"form": form})
+
+
+
+@login_required
+def roast_update(request, pk):
+    if not request.user.is_staff:
+        raise Http404
+
+    roast = get_object_or_404(Roast, pk=pk)
+
+    if request.method == "POST":
+        form = RoastForm(request.POST, instance=roast)
+        if form.is_valid():
+            form.save()
+            return redirect("roast_list")  # or wherever you want
+    else:
+        form = RoastForm(instance=roast)
+
+    return render(request, "roasts/roast_form.html", {"form": form, "roast": roast})
+
+
+
+@login_required
+def roast_delete(request, pk):
+    if not request.user.is_staff:
+        raise Http404
+
+    roast = get_object_or_404(Roast, pk=pk)
+
+    if request.method == "POST":
+        roast.delete()
+        return redirect("roast_list")
+
+    return render(request, "roasts/roast_confirm_delete.html", {"roast": roast})

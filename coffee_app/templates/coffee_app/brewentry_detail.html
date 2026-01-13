@@ -27,13 +27,13 @@
 
 <hr>
  {% if user == entry.user %}
-<a href="{% url 'brewentry_list' %}">← Back to My Entries</a>
+<a href="{% url 'brewentry_list' %}">Back to My Entries</a> 
 {% else %}
-<a href="{% url 'community' %}">← Back to All Entries</a>
+<a href="{% url 'community' %}">Back to All Entries</a> 
 {% endif%}
 
 {% if user == entry.user or user.is_staff or user.is_superuser %}
-<a href="{% url 'brewentry_update' entry.pk %}">Edit Entry</a>
+<a href="{% url 'brewentry_update' entry.pk %}">| Edit Entry</a>  |
 <a href="{% url 'brewentry_delete' entry.pk %}">Delete Entry</a>
 {% endif%}
 
