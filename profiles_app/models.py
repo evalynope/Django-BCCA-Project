@@ -59,13 +59,13 @@ class Profile(models.Model):
 ]
 
 
-    BREW_METHODS = [("espresso", "Espresso"),  
-                ("pour_over", "Pour Over"),
-                ("french_press", "French Press"), 
-                ("drip", "Drip"), 
-                ("aeropress", "AeroPress"), 
-                ("moka_pot", "Moka Pot"), 
-                ("other", "Other"), ]
+    BREW_METHODS = [("Espresso", "Espresso"),  
+                ("Pour Over", "Pour Over"),
+                ("French press", "French Press"), 
+                ("Drip", "Drip"), 
+                ("AeroPress", "AeroPress"), 
+                ("Moka Pot", "Moka Pot"), 
+                ("Other", "Other"), ]
     
     ROASTS = [
         ("light","Light"),
@@ -77,7 +77,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name="profile")
     first_last_name = models.CharField(
-        max_length=100,
+        max_length=40,
         blank=True)
     city_state = models.CharField(
         max_length=50,

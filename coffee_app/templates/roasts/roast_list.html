@@ -29,26 +29,9 @@
 
 <hr>
 
-<h3 class="section-title">Latest Brews</h3>
-
-
-<div class="brew-grid">
-    {% for entry in latest_entries %}
-        <div class="brew-card">
-            <strong>{{ entry.title }}</strong> by {{ entry.user.username }}<br>
-            <em>{{ entry.roast.name }}</em><br>
-            {{ entry.entry|truncatechars:50 }}
-        </div>
-    {% empty %}
-        <p>No entries yet.</p>
-    {% endfor %}
-</div>  
-
-<hr>
-
 <!-- Roast list -->
-<h3>Filter By:</h3>
-<form method="get" class="roast-filters">
+<h3 id="filter-by">Filter By:</h3>
+<form method="get" action="#filter-by" class="roast-filters">
           <!-- Filters -->
 
             <label for="profile">Roast Profile:</label>
@@ -72,7 +55,7 @@
                 <option value="popular"{% if sort == "popular" %}selected{% endif %}>Popularity</option>
             </select>
 
-            <button type="submit" class="button-primary">Apply</button>
+            <button type="submit" class="button-primary" id="apply-filter-button">Apply</button>
         </form>
 
 <hr>
@@ -92,6 +75,23 @@
         <p>No roasts yet.</p>
     {% endfor %}
 </div>
+
+<hr>
+
+<h3 class="section-title" id="latest-brews">Latest Brews</h3>
+
+
+<div class="brew-grid">
+    {% for entry in latest_entries %}
+        <div class="brew-card">
+            <strong>{{ entry.title }}</strong> by {{ entry.user.username }}<br>
+            <em>{{ entry.roast.name }}</em><br>
+            {{ entry.entry|truncatechars:50 }}
+        </div>
+    {% empty %}
+        <p>No entries yet.</p>
+    {% endfor %}
+</div>  
 
 <hr>
 

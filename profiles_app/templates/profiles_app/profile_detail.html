@@ -2,14 +2,30 @@
 {% block content %}
 
 
-<h2>User:{{ profile.user.username }}</h2>
-<p>First and Last name:{{ profile.first_last_name}}</p>
-<p>Bio: {{ profile.bio }}</p>
-<p> City: {{ profile.city_state }}</p>
-<p> State: {{ profile.state }}</p>
-<p> Favorite Brew Method: {{ profile.fav_brew }}</p>
-<p> Roast Preference: {{ profile.roast_preference }}</p>
+<h2>User: {{ profile.user.username }}</h2>
+{% if profile.first_last_name %}
+<p>First and Last name: {{ profile.first_last_name}}</p>
+{% endif %}
 
+{% if profile.bio %}
+<p>Bio: {{ profile.bio }}</p>
+{% endif %}
+
+{% if profile.city_state %}
+<p> City: {{ profile.city_state }}</p>
+{% endif %}
+
+{% if profile.state %}
+<p> State: {{ profile.state }}</p>
+{% endif %}
+
+{% if profile.fav_brew %}
+<p> Favorite Brew Method: {{ profile.fav_brew }}</p>
+{% endif %}
+
+{% if profile.roast_preference %}
+<p> Roast Preference: {{ profile.roast_preference }}</p>
+{%endif%}
 
 
 {% comment %} button only works if user is is_authenticated {% endcomment %}

@@ -25,16 +25,13 @@
 
 <h3>Entries on this Roast:</h3>
 {% if entries %}
-  <ul>
       {% for entry in entries %}
-        <li>
         <p>{{entry.user.username}} brewed this roast on {{ entry.date_created|date:"M d, Y" }}</p>
         {% if entry.rating %}
           <p>Rating: {{ entry.rating }} / 5</p>
         {% endif %}
-        </li>
       {% endfor %}
-    </ul>
+    
 
 
 {% else %}

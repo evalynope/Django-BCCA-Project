@@ -3,10 +3,19 @@
 
 <h2>Sign up</h2>
 
-<form method="post">
+<style>
+.signup-form p {
+    list-style: none;
+    margin: 0 0 1em 0;
+    padding: 0;
+}
+</style>
+
+ <form method="post" class="signup-form">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form.as_p }} 
   <button type="submit">Create account</button>
-</form>
+</form> 
+
 
 {% endblock %}

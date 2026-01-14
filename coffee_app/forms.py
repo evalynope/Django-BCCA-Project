@@ -24,12 +24,27 @@ class BrewEntryForm(forms.ModelForm):
         cleaned_data = super().clean()
         brew_method = cleaned_data.get("brew_method")
         other_method = cleaned_data.get("other_brew_method")
+        title = cleaned_data.get("title").strip()
+        entry = cleaned_data.get("entry").strip()
 
         if brew_method == "other" and not other_method:
             self.add_error(
                 "other_brew_method",
                 "Please specify the brew method if you select 'Other'."
             )
+        if title and title.isdigit():
+             self.add_error(
+            "title",
+            "Title cannot only be numeric. Please provide character values."
+        )
+        
+        entry_compact = entry.replace(" ", "").replace("\n", "")
+        if entry_compact.isdigit():
+             self.add_error(
+                "entry",
+                "Entry cannot only be numeric. Please provide character values."
+            )
+        
 
         return cleaned_data
 

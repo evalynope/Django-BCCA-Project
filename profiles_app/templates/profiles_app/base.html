@@ -1,53 +1,63 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>{% block title %}Coffee App{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-     {% block extra_css %}{% endblock %}
-</head>
-<body>
-
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
     <nav>
-        {% if user.is_staff %} 
-        <span style="margin-right: auto;">
-        <p style="display:inline; margin:20px;">Logged in as: Admin</p>
-        </span>
-        <a href="{% url 'roast_create' %}">Add Roast</a>
-        <a href="{% url 'profile_detail' %}">Profile</a>
-        <a href="{% url 'brewentry_list' %}">My Journal Entries</a>
-        <a href="{% url 'roast_list' %}">Roasts</a>
-        <a href="{% url 'community'%}">Community Feed</a>
-        <form method="post" action="{% url 'logout' %}" style="display:inline;">
-            {% csrf_token %}
-             <button type="submit">Log Out</button>
-        </form>
-        {% else %} 
-            {% if user.is_authenticated %}
-                 <span style="margin-right: auto;">
-                <p style="display:inline; margin:20px;">Logged in as: <strong>{{user.username}}</strong></p>
-                 </span>
-                <a href="{% url 'profile_detail' %}">Profile</a>
-                <a href="{% url 'brewentry_list' %}">My Journal Entries</a>
-                <a href="{% url 'roast_list' %}">Roasts</a>
-                <a href="{% url 'community'%}">Community Feed</a>
-                <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                    {% csrf_token %}
-                     <button type="submit">Log Out</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}">Log In</a>
-                <a href="{% url 'roast_list' %}">Roasts</a>
-                <a href="{% url 'signup' %}">Sign Up</a>
-                <a href="{% url 'community'%}">Community Feed</a>
-            {% endif %}
-        {% endif %}
+      {% if user.is_staff %}
+      <span style="margin-right: auto">
+        <p style="display: inline; margin: 20px">Logged in as: Admin</p>
+      </span>
+      <a href="{% url 'roast_create' %}">Add Roast</a>
+      <a href="{% url 'profile_detail' %}">Profile</a>
+      <a href="{% url 'brewentry_list' %}">My Journal Entries</a>
+      <a href="{% url 'roast_list' %}">Roasts</a>
+      <a href="{% url 'community'%}">Community Feed</a>
+      <form method="post" action="{% url 'logout' %}" style="display: inline">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+      </form>
+      {% else %} {% if user.is_authenticated %}
+      <span style="margin-right: auto">
+        <p style="display: inline; margin: 20px">
+          Logged in as: <strong>{{user.username}}</strong>
+        </p>
+      </span>
+      <a href="{% url 'profile_detail' %}">Profile</a>
+      <a href="{% url 'brewentry_list' %}">My Journal Entries</a>
+      <a href="{% url 'roast_list' %}">Roasts</a>
+      <a href="{% url 'community'%}">Community Feed</a>
+      <form method="post" action="{% url 'logout' %}" style="display: inline">
+        {% csrf_token %}
+        <button type="submit">Log Out</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}">Log In</a>
+      <a href="{% url 'roast_list' %}">Roasts</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+      <a href="{% url 'community'%}">Community Feed</a>
+      {% endif %} {% endif %}
     </nav>
 
-
-
     {% block content %}{% endblock %}
-
-</body>
-</html>
+  {% comment %} </body>
+  <script>
+    const button = document.getElementById("apply-filter-button");
+    const targetElement = document.getElementById("filter-by");
+    button.addEventListener("click", function () {
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth", // Smooth scrolling
+          block: "start", // Align to top of viewport
+        });
+      } else {
+        console.error("Target element not found.");
+      }
+    });
+  </script>
+</html> {% endcomment %}

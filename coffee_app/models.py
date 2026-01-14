@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model 
-from django.core.validators import MinValueValidator, MaxValueValidator 
+from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator, MaxLengthValidator
 from django.conf import settings
 from django.db.models import Count, F, Case, When
 
@@ -91,12 +91,19 @@ class BrewEntry(models.Model):
         choices=BREW_METHODS, #choices 
         help_text="How did you brew this roast?"
         )
+    
     other_brew_method = models.CharField( 
         max_length=50,
         blank=True, 
         help_text="If 'Other', specify the brew method"
         )
-    entry = models.TextField() #notes on experience
+    entry = models.TextField(
+        validators=[
+            MinLengthValidator(10),
+            MaxLengthValidator(1000),
+        ],
+        help_text="20–1000 characters"
+    ) 
     rating = models.PositiveSmallIntegerField(
         choices=[(i, i) for i in range(1, 6)],
         validators=[MinValueValidator(1), MaxValueValidator(5)],

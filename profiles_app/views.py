@@ -13,6 +13,7 @@ from .models import Profile
 from django.forms import ModelForm
 from .forms import ProfileForm
 from django.urls import reverse_lazy
+from .forms import CustomUserCreationForm
 
 
 def home(request):
@@ -37,7 +38,8 @@ def staff_dashboard(request):
 
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        # form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             Profile.objects.create(
