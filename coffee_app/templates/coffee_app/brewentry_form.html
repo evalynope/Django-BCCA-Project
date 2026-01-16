@@ -12,6 +12,43 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    const brewMethodSelect = document.getElementById("id_brew_method");
+    const brewMethodField = brewMethodSelect.closest("p");
+    const brewMethodHelp = document.getElementById("id_brew_method_helptext");
+
+    const otherInput = document.getElementById("id_other_brew_method");
+    const otherField = otherInput.closest("p");
+
+    function toggleFields() {
+        const selected = brewMethodSelect.value.toLowerCase();
+
+        if (selected === "other") {
+            // Show the "other" input
+            otherField.style.display = "block";
+
+            // Hide the main brew method field + help text
+            brewMethodField.style.display = "none";
+            if (brewMethodHelp) brewMethodHelp.style.display = "none";
+        } else {
+            // Show the main brew method field + help text
+            brewMethodField.style.display = "block";
+            if (brewMethodHelp) brewMethodHelp.style.display = "block";
+
+            // Hide the "other" input
+            otherField.style.display = "none";
+            otherInput.value = "";
+        }
+    }
+
+    toggleFields();
+    brewMethodSelect.addEventListener("change", toggleFields);
+});
+</script>
+
+
+
+{% comment %} <script>
+document.addEventListener("DOMContentLoaded", function() {
     const brew_method_select = document.getElementById("id_brew_method");
     const otherField = document.getElementById("id_other_brew_method").closest("p");
 
@@ -27,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
     toggleOtherField();
     brew_method_select.addEventListener("change", toggleOtherField);
 });
-</script>
+</script> {% endcomment %}
 
 {% endblock %}
 

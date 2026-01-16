@@ -3,14 +3,6 @@
 
 <h2>Sign up</h2>
 
-<style>
-.signup-form p {
-    list-style: none;
-    margin: 0 0 1em 0;
-    padding: 0;
-}
-</style>
-
  <form method="post" class="signup-form">
   {% csrf_token %}
   {{ form.as_p }} 

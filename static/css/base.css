@@ -18,9 +18,15 @@
    Global Reset & Base Styles
    ===================================================== */
 
+.signup-form ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
 
-
-
+.signup-form ul li {
+    margin: 0;
+}
 
 
 .hero-section {
