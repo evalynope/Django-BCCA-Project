@@ -96,7 +96,6 @@ def brewentry_list(request):
 @login_required
 def brewentry_detail(request, pk): 
     entry = get_object_or_404(BrewEntry,  pk=pk) 
-    # user=request.user was removed for community feed testing
     return render(
         request, 
         "coffee_app/brewentry_detail.html",

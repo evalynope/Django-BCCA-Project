@@ -6,14 +6,7 @@
 
 <p><strong>Created By:</strong> {{ entry.user }}</p>
 <p><strong>Roast:</strong> {{ entry.roast }}</p>
-<p><strong>Brew Method:</strong> 
-    {% if entry.brew_method == "other" %}
-        {{ entry.other_brew_method }}
-    {% else %}
-        {{ entry.get_brew_method_display }} 
-    {% endif %}
-</p>
-
+<p><strong>Brew Method: {{ entry.brew_method }}</strong></p>
 <p><strong>Date Created:</strong> {{ entry.date_created }}</p>
 
 <hr>
@@ -41,4 +34,3 @@
 
 
 
-{% comment %}{{ entry.get_brew_method_display }} --> this accesses the Django choices list I created {% endcomment%}

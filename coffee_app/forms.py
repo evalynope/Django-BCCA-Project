@@ -12,7 +12,6 @@ class BrewEntryForm(forms.ModelForm):
             "title",
             "roast",
             "brew_method",
-            "other_brew_method",
             "entry",
             "rating",
         ]
@@ -27,11 +26,7 @@ class BrewEntryForm(forms.ModelForm):
         title = cleaned_data.get("title").strip()
         entry = cleaned_data.get("entry").strip()
 
-        if brew_method == "other" and not other_method:
-            self.add_error(
-                "other_brew_method",
-                "Please specify the brew method if you select 'Other'."
-            )
+      
         if title and title.isdigit():
              self.add_error(
             "title",
@@ -53,7 +48,7 @@ class BrewEntryForm(forms.ModelForm):
 from django import forms
 from .models import Roast
 
-class RoastForm(forms.ModelForm): #staff can create a Roast not in admin
+class RoastForm(forms.ModelForm): 
     class Meta:
         model = Roast
         fields = [
