@@ -5,6 +5,10 @@
 <hr>
 
 <h2>User: {{ profile.user.username }}</h2>
+{% if not profile.first_last_name and not profile.bio and not profile.city_state and not profile.state and not profile.fav_brew and not profile.roast_preference%}
+<p>New to the community? Edit your profile to tell us more about you!</p>
+{% endif %}
+
 {% if profile.first_last_name %}
 <p>First and Last name: {{ profile.first_last_name}}</p>
 {% endif %}

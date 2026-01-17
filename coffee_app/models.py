@@ -83,20 +83,20 @@ class BrewEntry(models.Model):
         related_name="brew_entries"
     )
     title = models.CharField( 
-        max_length=100,
+        max_length=25,
         help_text="Give your brew a short descriptive title"
         )
     brew_method = models.CharField(
         max_length=50,
-        choices=BREW_METHODS, #choices 
+        choices=BREW_METHODS, 
         help_text="How did you brew this roast?"
         )
     entry = models.TextField(
         validators=[
-            MinLengthValidator(10),
+            MinLengthValidator(5),
             MaxLengthValidator(1000),
         ],
-        help_text="20–1000 characters"
+        help_text="5–1000 characters"
     ) 
     rating = models.PositiveSmallIntegerField(
         choices=[(i, i) for i in range(1, 6)],
