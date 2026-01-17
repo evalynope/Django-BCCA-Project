@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model 
 from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator, MaxLengthValidator
 from django.conf import settings
-from django.db.models import Count, F, Case, When
+from django.db.models import Count
+from django.core.exceptions import ValidationError
 
 
 User = get_user_model()
@@ -84,7 +85,8 @@ class BrewEntry(models.Model):
     )
     title = models.CharField( 
         max_length=25,
-        help_text="Give your brew a short descriptive title"
+        help_text="Give your brew a short descriptive title",
+        unique=True
         )
     brew_method = models.CharField(
         max_length=50,
@@ -105,6 +107,10 @@ class BrewEntry(models.Model):
         blank=True
         )
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def clean(self):
+        if BrewEntry.objects.filter(title__iexact=self.title).exists():
+            raise ValidationError("Title already exists (case-insensitive)")
 
     class Meta:
         ordering = ["-date_created"]
