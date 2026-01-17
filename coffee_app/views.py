@@ -18,12 +18,14 @@ from django.http import Http404
 
 def roast_list(request):
     roasts = Roast.objects.select_related("coffee_shop").all()
-    # featured_roasts = Roast.objects.order_by('-id')[:5] #last five added- maybe use later
     latest_entries = BrewEntry.objects.select_related('user','roast').order_by("-date_created")[:12]
     gifting_roasts = Roast.objects.filter(is_good_to_gift=True)
+    availability = request.GET.get("availability", "")
     profile = request.GET.get("profile",'')
     crowd = request.GET.get("crowd", '')
     sort = request.GET.get("sort", '')
+
+    
 
     if profile:
         roasts = roasts.filter(profile=profile)
@@ -36,21 +38,23 @@ def roast_list(request):
             brew_count=Count("brew_entries")
         ).order_by("-brew_count")
 
+    if availability == "available":
+        roasts = roasts.filter(is_available=True)
+    
 
 
     return render(
         request, 
         "roasts/roast_list.html", 
         {"roasts": roasts,
-        #  "featured_roasts": featured_roasts,
         "gifting_roasts": gifting_roasts,
           "profile": profile,
           "crowd": crowd,
           "sort": sort,
-          "latest_entries": latest_entries})
+          "latest_entries": latest_entries,
+          "availability": availability})
 
 
-#should a user click on one roast, render its details 
 
 def roast_details(request, pk):
     roast = get_object_or_404(Roast, pk=pk) #primary key. get_object handles the 'doesn't exist' error gracefully. 

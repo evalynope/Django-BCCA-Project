@@ -34,6 +34,14 @@
 <form method="get" action="#filter-by" class="roast-filters">
           <!-- Filters -->
 
+        {% if user.is_staff %}
+            <label for="availability">Availability:</label>
+            <select id="availability" name="availability">
+                <option value="all" {% if availability == "all" %}selected{% endif %}>All roasts</option>
+                <option value="available" {% if availability == "available" %}selected{% endif %}>Available only</option>
+            </select>
+        {% endif %}
+
             <label for="profile">Roast Profile:</label>
             <select id="profile" name="profile">
                 <option value="">All profiles</option>
@@ -54,27 +62,48 @@
                 <option value=""{% if sort == "default" %}selected{% endif %}>Default</option>
                 <option value="popular"{% if sort == "popular" %}selected{% endif %}>Popularity</option>
             </select>
-
+    
             <button type="submit" class="button-primary" id="apply-filter-button">Apply</button>
         </form>
 
 <hr>
 
-<div class="roast-grid">
-    {% for roast in roasts %}
-        <div class="roast-card">
-            <h1>
-                <a href="{% url 'roast_details' roast.pk %}">{{ roast.name }}</a>
-            </h1>
-            <p style="font-size:1rem; margin-top:0.25rem;">
-                {{ roast.tasting_notes }}
-            </p>
-        </div>
+{% if user.is_staff %}
+    <div class="roast-grid">
+        {% for roast in roasts %}
+            <div class="roast-card">
+                <h1>
+                    <a href="{% url 'roast_details' roast.pk %}">{{ roast.name }}</a>
+                </h1>
+                <p style="font-size:1rem; margin-top:0.25rem;">
+                    {{ roast.tasting_notes }}
+                </p>
+            </div>
+        {% empty %}
+            <p>No roasts yet.</p>
+        {% endfor %}
+    </div>
 
-    {% empty %}
-        <p>No roasts yet.</p>
-    {% endfor %}
-</div>
+{% else %}
+
+    <div class="roast-grid">
+        {% for roast in roasts %}
+            {% if roast.is_available %}
+                <div class="roast-card">
+                    <h1>
+                        <a href="{% url 'roast_details' roast.pk %}">{{ roast.name }}</a>
+                    </h1>
+                    <p style="font-size:1rem; margin-top:0.25rem;">
+                        {{ roast.tasting_notes }}
+                    </p>
+                </div>
+            {% endif %}
+        {% empty %}
+            <p>No roasts yet.</p>
+        {% endfor %}
+    </div>
+
+{% endif %}
 
 <hr>
 
@@ -100,6 +129,7 @@
 <p>There's something for everyone. Grab one of these to get the best of the best!</p>
 <div class="roast-grid gifting-roasts">
     {% for roast in gifting_roasts %}
+        {% if roast.is_available %}
         <div class="roast-card">
             <h2>
                 <a href="{% url 'roast_details' roast.pk %}" class="featured-roast-link">
@@ -107,6 +137,7 @@
                 </a>
             </h2>
         </div>
+        {% endif %}
     {% endfor %}
 </div>
 
