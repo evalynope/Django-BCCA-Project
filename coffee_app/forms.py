@@ -19,6 +19,10 @@ class BrewEntryForm(forms.ModelForm):
             "entry": forms.Textarea(attrs={"rows": 4}), 
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["roast"].queryset = Roast.objects.filter(is_available=True)
+
     def clean(self):
         cleaned_data = super().clean()
     
@@ -45,25 +49,6 @@ class BrewEntryForm(forms.ModelForm):
 
         return entry.strip()
             
-        # entry_compact = entry.replace(" ", "").replace("\n", "")
-        # if entry_compact.isdigit():
-        #      self.add_error(
-        #         "entry",
-        #         "Entry cannot only be numeric. Please provide character values."
-        #     )  
-             
-        # return cleaned_data
-        
-    
-    # def clean_entry(self):
-    #     entry = self.cleaned_data.get("entry") or ''
-    #     if not entry or not entry.strip():
-    #         raise forms.ValidationError("Entry cannot be blank")
-    #     return entry
-        
-
-    
-
 class RoastForm(forms.ModelForm): 
     class Meta:
         model = Roast

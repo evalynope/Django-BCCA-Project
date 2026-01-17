@@ -97,13 +97,7 @@ def brewentry_detail(request, pk):
 @login_required
 def brewentry_update(request, pk): 
     instance = ""
-    # if request.user.is_staff or request.user.is_superuser:
-    # print(request.user)
-    # print(f"PK: {pk}")
     instance = get_object_or_404(BrewEntry, pk=pk)
-    # else:
-    # instance = get_object_or_404(BrewEntry, pk=pk, user=request.user)
-    # print(instance)
     if request.method == "POST":
         form = BrewEntryForm(request.POST, instance=instance)
         print("did you get here")
