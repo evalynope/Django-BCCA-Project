@@ -108,9 +108,9 @@ class BrewEntry(models.Model):
         )
     date_created = models.DateTimeField(auto_now_add=True)
 
-    def clean(self):
-        if BrewEntry.objects.filter(title__iexact=self.title).exists():
-            raise ValidationError("Title already exists (case-insensitive)")
+    # def clean(self):
+    #     if BrewEntry.objects.filter(title__iexact=self.title).exists():
+    #         raise ValidationError("Title already exists (case-insensitive)")
 
     class Meta:
         ordering = ["-date_created"]

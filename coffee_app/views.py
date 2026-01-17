@@ -96,12 +96,26 @@ def brewentry_detail(request, pk):
 
 @login_required
 def brewentry_update(request, pk): 
-    instance = get_object_or_404(BrewEntry, pk=pk, user=request.user)
+    instance = ""
+    # if request.user.is_staff or request.user.is_superuser:
+    # print(request.user)
+    # print(f"PK: {pk}")
+    instance = get_object_or_404(BrewEntry, pk=pk)
+    # else:
+    # instance = get_object_or_404(BrewEntry, pk=pk, user=request.user)
+    # print(instance)
     if request.method == "POST":
         form = BrewEntryForm(request.POST, instance=instance)
+        print("did you get here")
+        print(form.is_valid())
         if form.is_valid():
+            print("how about here?")
             form.save()
-        return redirect("brewentry_list")
+
+            if request.user.is_staff:
+                return redirect("community")
+            else:
+                return redirect("brewentry_list")
     else:
         form = BrewEntryForm(instance = instance) 
 
@@ -113,11 +127,19 @@ def brewentry_update(request, pk):
     )
     
 @login_required 
-def brewentry_delete(request, pk): 
-    entry = get_object_or_404(BrewEntry, pk=pk, user=request.user)
+def brewentry_delete(request, pk):
+    if request.user.is_staff or request.user.is_superuser: 
+        entry = get_object_or_404(BrewEntry, pk=pk)
+    else:
+        entry = get_object_or_404(BrewEntry, pk=pk, user=request.user)
+     
+
     if request.method == "POST":
         entry.delete()
-        return redirect("brewentry_list")
+        if request.user.is_staff:
+            return redirect("community")
+        else:
+            return redirect("brewentry_list")
     return render(
         request,
         "coffee_app/brewentry_delete.html",

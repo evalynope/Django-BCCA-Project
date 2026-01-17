@@ -21,32 +21,48 @@ class BrewEntryForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        brew_method = cleaned_data.get("brew_method")
-        other_method = cleaned_data.get("other_brew_method")
-        title = cleaned_data.get("title").strip()
-        entry = cleaned_data.get("entry").strip()
+    
+    def clean_title(self):
+        title = self.cleaned_data.get("title")
+        if not title or not title.strip():
+            raise forms.ValidationError("Title cannot be blank.")
+        if title.strip().isdigit():
+            raise forms.ValidationError(
+                "Title cannot only be numeric. Please provide character values."
+            )
+        return title.strip()
+    
+    def clean_entry(self):
+        entry = self.cleaned_data.get("entry")
+        if not entry or not entry.strip():
+            raise forms.ValidationError("Entry cannot be blank.")
 
-      
-        if title and title.isdigit():
-             self.add_error(
-            "title",
-            "Title cannot only be numeric. Please provide character values."
-        )
-        
         entry_compact = entry.replace(" ", "").replace("\n", "")
         if entry_compact.isdigit():
-             self.add_error(
-                "entry",
+            raise forms.ValidationError(
                 "Entry cannot only be numeric. Please provide character values."
             )
+
+        return entry.strip()
+            
+        # entry_compact = entry.replace(" ", "").replace("\n", "")
+        # if entry_compact.isdigit():
+        #      self.add_error(
+        #         "entry",
+        #         "Entry cannot only be numeric. Please provide character values."
+        #     )  
+             
+        # return cleaned_data
+        
+    
+    # def clean_entry(self):
+    #     entry = self.cleaned_data.get("entry") or ''
+    #     if not entry or not entry.strip():
+    #         raise forms.ValidationError("Entry cannot be blank")
+    #     return entry
         
 
-        return cleaned_data
-
-
-
-from django import forms
-from .models import Roast
+    
 
 class RoastForm(forms.ModelForm): 
     class Meta:

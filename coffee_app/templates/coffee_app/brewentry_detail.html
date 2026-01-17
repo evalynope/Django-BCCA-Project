@@ -19,7 +19,7 @@
 {% endif %}
 
 <hr>
- {% if user == entry.user %}
+{% if user == entry.user %}
 <a href="{% url 'brewentry_list' %}">Back to My Entries</a> 
 {% else %}
 <a href="{% url 'community' %}">Back to All Entries</a> 
