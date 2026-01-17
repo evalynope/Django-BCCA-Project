@@ -5,29 +5,18 @@
    ===================================================== */
 
 :root {
-  --color-primary: #f6efcc;     /* green */
-  --color-secondary: #994633;   /* reddish brown */
-  --color-bg: #f6efcc;          /* eggshell */
-  --color-surface: #994633;     /* layering color */
-  --color-text: #f6efcc;        /* espresso */
+  --color-primary: #f6efcc;    
+  --color-secondary: #994633;   
+  --color-bg: #f6efcc;          
+  --color-surface: #994633;     
+  --color-text: #f6efcc;      
 
   --color-border: rgba(44, 25, 17, 0.15);
 }
 
 /* =====================================================
-   Global Reset & Base Styles
+   Global Reset, Base Styles, Hero, Body
    ===================================================== */
-
-.signup-form ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-.signup-form ul li {
-    margin: 0;
-}
-
 
 .hero-section {
     text-align: center;
@@ -35,7 +24,6 @@
     margin-left: 5.5rem;
     padding: 2rem;
 }
-
 
 *,
 *::before,
@@ -45,15 +33,14 @@
 
 body {
     background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.2)),
-        url('../images/coffee.jpg'); /* path relative to CSS file */
-    background-size: cover;      /* cover the whole page */
+        url('../images/coffee.jpg'); 
+    background-size: cover;      
     background-repeat: no-repeat; 
-    background-attachment: fixed; /* keeps it fixed when scrolling */
+    background-attachment: fixed; 
     background-position: center;
 
     margin: 0;
     padding: 0;
-    /* background: var(--color-bg); */
     color: var(--color-text);
     font-family: system-ui, -apple-system, BlinkMacSystemFont,
                 "Helvetica", Arial, sans-serif;
@@ -185,21 +172,21 @@ a:focus-visible {
 
 
 /* =====================================================
-   Two-column layout with sidebar
+   Two-column layout 
    ===================================================== */
 
 .main-layout {
     display: flex;
-    gap: 2rem;       /* space between main-content and sidebar */
+    gap: 2rem;       
     width: 100%;
     color:#0E4315
 }
 
 .main-content {
-    flex: 4 1 0;     /* left column ~80% */
+    flex: 4 1 0;    
     display: flex;
     flex-direction: column;
-    align-items: center;  /* keep headings and featured roasts centered */
+    align-items: center;  
     gap: 1rem;
 }
 
@@ -218,4 +205,19 @@ button[type="submit"] {
 
 button[type="submit"]:active {
     transform: translateY(1px);
+}
+
+
+/* =====================================================
+   Sign-up form Styling
+   ===================================================== */
+
+   .signup-form ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.signup-form ul li {
+    margin: 0;
 }

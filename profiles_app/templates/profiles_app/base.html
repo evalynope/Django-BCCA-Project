@@ -45,19 +45,4 @@
     </nav>
 
     {% block content %}{% endblock %}
-  {% comment %} </body>
-  <script>
-    const button = document.getElementById("apply-filter-button");
-    const targetElement = document.getElementById("filter-by");
-    button.addEventListener("click", function () {
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth", // Smooth scrolling
-          block: "start", // Align to top of viewport
-        });
-      } else {
-        console.error("Target element not found.");
-      }
-    });
-  </script>
-</html> {% endcomment %}
+

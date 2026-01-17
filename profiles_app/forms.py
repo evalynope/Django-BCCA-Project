@@ -7,6 +7,12 @@ from django import forms
 from django.contrib.auth.password_validation import validate_password
 
 
+# from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.models import User
+# from django import forms
+
+
+
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
@@ -20,13 +26,6 @@ class ProfileForm(ModelForm):
         'roast_preference': 'Preferred Roast',
     }
         
-
-# profiles_app/forms.py
-
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django import forms
-
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(
         min_length=5,
@@ -36,19 +35,19 @@ class CustomUserCreationForm(UserCreationForm):
 
     password1 = forms.CharField(
         required=True,
-        label="Passwo",
-        widget=forms.PasswordInput(attrs={'placeholder': 'Enter pass'}),
+        label="Password",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter password'}),
     )
 
     password2= forms.CharField(
         required=True,
         label="Password",
-        widget=forms.PasswordInput(attrs={'placeholder': 'Conformation password'}),
+        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}),
     )
 
     class Meta:
         model = User
-        fields = ['email']#("username", "password1", "password2")
+        fields = ['email']
 
     def clean_username(self):
         username = self.cleaned_data["username"]
@@ -65,7 +64,7 @@ class CustomUserCreationForm(UserCreationForm):
     def clean_password1(self):
         password = self.cleaned_data.get('password1')
         try:
-            # Run Django's built-in password validators
+            
             validate_password(password, self.instance)
         except forms.ValidationError as e:
             raise forms.ValidationError(e.messages)

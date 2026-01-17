@@ -11,8 +11,8 @@
 .roast-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;          /* space between filters */
-    justify-content: center; /* center all items horizontally */
+    gap: 0.75rem;          
+    justify-content: center; 
     margin-bottom: 2rem;
 }
 
@@ -32,15 +32,13 @@
     color: #f6efcc; 
     font-weight: 500;
     cursor: pointer;
-    /* transition: background 0.2s, transform 0.2s; */
+    
 }
 
 .roast-filters select:hover,
 .roast-filters select:focus {
     background: transparent;
     outline: none;
-    /* color: #white; */
-    /* transform: translateY(-1px); */
 }
 
 /* Submit button */
@@ -69,10 +67,11 @@
 
 .main-content h3 {
     text-align: center;
-    width: 100%;              /* optional, keeps heading from shrinking */
+    width: 100%;             
 }
 
 /* === Gifting roasts container === */
+
 .gifting-roasts {
     display: flex;
     flex-wrap: wrap;
@@ -108,9 +107,6 @@
     transform: translateY(-2px);
 }
 
-/* =====================================================
-   displaying roasts in grid format
-   ===================================================== */
 
 .roast-grid {
     display: grid;
@@ -124,14 +120,14 @@
 
 
 
-/* Link styling */
+
 .roast-card a {
     text-decoration: none;
     color: #f6efcc;
 }
 
 .roast-card a:hover {
-    color: #6b3e26; /* subtle accent on hover */
+    color: #6b3e26;
 }
 
 .roast-card {
@@ -143,15 +139,15 @@
    latest entries 
    ===================================================== */
 
-/* Grid container */
+
 .brew-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
 
     max-width: 1200px;
-    margin: 2rem auto;   /* keeps the container centered */
-    justify-items: center; /* this centers the items horizontally in each column */
+    margin: 2rem auto;   
+    justify-items: center; 
 }
 
 /* Individual cards */
@@ -160,9 +156,15 @@
     color: #f6efcc;
     line-height: 1.4;
 
-    width: 100%; /* ensures minmax(250px,1fr) works properly */
-    box-sizing: border-box; /* includes padding in width */
+    width: 100%; 
+    box-sizing: border-box; 
 }
+
+
+
+
+
+
 
 
 /*RESPONSIVE*/

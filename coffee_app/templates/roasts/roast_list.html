@@ -9,7 +9,7 @@
 {% block content %}
 
 
-<!-- Hero section (full width, top) -->
+
 <div class="hero-section">
     <h1 style="font-size: 3rem">
         Browse our roasts. 
@@ -19,9 +19,11 @@
 <div class ="opener">
     </h1>
     <h3>
-        Whether you're passing through Oxford or you're a Heartbreak 'regular', we believe the best way to select 
-        the right roast is by hearing from the people who brew it their way. Use this journal to find 
-        users with similar preferences to guide your own brew or to pick out something special for gifting!
+        Whether you’re passing through Oxford or you’re a Heartbreak regular, 
+        we believe the best way to choose the right roast is by hearing from 
+        the people who brew it their own way. Use this journal to explore what’s 
+        available, discover a unique roast to guide your next brew, and even 
+        find inspiration for gifting.
     </h3>
 </div>
     
@@ -107,7 +109,7 @@
 
 <hr>
 
-<h3 class="section-title" id="latest-brews">Latest Brews</h3>
+<h3 class="section-title" id="latest-brews">Latest Brews News</h3>
 
 
 <div class="brew-grid">
@@ -124,9 +126,9 @@
 
 <hr>
 
-<!-- Gifting roasts -->
-<h3>Our Gift Picks:</h3>
-<p>There's something for everyone. Grab one of these to get the best of the best!</p>
+
+<h3>Our Top Gift Picks:</h3>
+<p>Great coffee makes a great gift. Start with these.</p>
 <div class="roast-grid gifting-roasts">
     {% for roast in gifting_roasts %}
         {% if roast.is_available %}

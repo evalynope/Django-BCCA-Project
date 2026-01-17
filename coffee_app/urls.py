@@ -1,8 +1,3 @@
-#/coffee_app/urls.py 
-#COFFEE
-#COFFEE
-#COFFEE
-
 
 from django.urls import path
 from . import views

@@ -1,7 +1,3 @@
-#COFFEE APP VIEWS
-#COFFEE APP
-#COFFEE APP
-#COFFEE APP
 
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Roast, BrewEntry
@@ -12,9 +8,6 @@ from django.db.models import Count
 from .forms import RoastForm
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-
-
-#render list of roasts for user, including filter options 
 
 def roast_list(request):
     roasts = Roast.objects.select_related("coffee_shop").all()
@@ -57,24 +50,23 @@ def roast_list(request):
 
 
 def roast_details(request, pk):
-    roast = get_object_or_404(Roast, pk=pk) #primary key. get_object handles the 'doesn't exist' error gracefully. 
+    roast = get_object_or_404(Roast, pk=pk) 
     entries = roast.brew_entries.all().order_by("-date_created") 
     return render(
         request, 
         "roasts/roast_details.html", 
         {"roast": roast, "most_common_brew_method": roast.most_common_brew_method(), "entries": entries})
 
-######## BREW ENTRY CRUD BELOW #######
 
 @login_required
 def brewentry_create(request):
     if request.method == "POST":
         form = BrewEntryForm(request.POST)
         if form.is_valid():
-            brew_entry = form.save(commit=False) #do not save yet
+            brew_entry = form.save(commit=False) 
             brew_entry.user = request.user 
             brew_entry.save() 
-            return redirect("brewentry_detail", pk=brew_entry.pk) #redirects to see the full details of the post #DOUBLECHECK brew_entry_detail
+            return redirect("brewentry_detail", pk=brew_entry.pk) 
     else:
         form = BrewEntryForm()
 
@@ -109,7 +101,7 @@ def brewentry_update(request, pk):
         form = BrewEntryForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
-        return redirect("brewentry_list") #URL name not function
+        return redirect("brewentry_list")
     else:
         form = BrewEntryForm(instance = instance) 
 
@@ -131,12 +123,9 @@ def brewentry_delete(request, pk):
         "coffee_app/brewentry_delete.html",
         {"entry": entry}
     )
-     
-
-######## BREW ENTRY CRUD ABOVE ###### COMMUNITY FEED BELOW 
 
 
-def community(request): # should return all community journal entries
+def community(request): 
     entries = BrewEntry.objects.all().order_by("-date_created")
 
     paginator = Paginator(entries, 10) 
@@ -155,7 +144,6 @@ def is_staff_user(user):
     return user.is_staff
 
 
-#staff create, update, delete roast:
 
 @login_required
 def roast_create(request):
@@ -184,7 +172,7 @@ def roast_update(request, pk):
         form = RoastForm(request.POST, instance=roast)
         if form.is_valid():
             form.save()
-            return redirect("roast_list")  # or wherever you want
+            return redirect("roast_list")  
     else:
         form = RoastForm(instance=roast)
 

@@ -91,12 +91,6 @@ class BrewEntry(models.Model):
         choices=BREW_METHODS, #choices 
         help_text="How did you brew this roast?"
         )
-    
-    # other_brew_method = models.CharField( 
-    #     max_length=50,
-    #     blank=True, 
-    #     help_text="If 'Other', specify the brew method"
-    #     )
     entry = models.TextField(
         validators=[
             MinLengthValidator(10),

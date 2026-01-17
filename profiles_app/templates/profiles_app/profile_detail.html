@@ -2,6 +2,8 @@
 {% block content %}
 
 
+<hr>
+
 <h2>User: {{ profile.user.username }}</h2>
 {% if profile.first_last_name %}
 <p>First and Last name: {{ profile.first_last_name}}</p>
@@ -28,17 +30,16 @@
 {%endif%}
 
 
-{% comment %} button only works if user is is_authenticated {% endcomment %}
+<hr>
+
 
 {% if user.is_authenticated %}
   <a href="{% url 'profile_edit' %}">Edit profile</a>
 {% endif %}
 
-{% comment %} logout below {% endcomment %}
-
 <form method="post" action="{% url 'logout' %}" style="display:inline;">
     {% csrf_token %}
-    {% comment %} <button type="submit">Log Out</button> {% endcomment %}
+   
 </form>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth import get_user_model #used to call all built in User fields
+from django.contrib.auth import get_user_model 
 
 
 User = get_user_model()

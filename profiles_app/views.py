@@ -38,8 +38,8 @@ def staff_dashboard(request):
 
 def signup(request):
     if request.method == "POST":
-        # form = UserCreationForm(request.POST)
-        form = CustomUserCreationForm(request.POST)
+        form = UserCreationForm(request.POST)
+        # form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             Profile.objects.create(
@@ -51,7 +51,7 @@ def signup(request):
                 roast_preference='',
             )
             login(request, user) 
-            return redirect("profile_detail") #double-check
+            return redirect("profile_detail") 
     else:
         form = UserCreationForm()
 
